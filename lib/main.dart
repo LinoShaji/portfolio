@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/homePage.dart';
+import 'package:portfolio/test.dart';
+import 'package:portfolio/test2.dart';
+import 'package:portfolio/AnimeStack.dart';
 
 
 void main() {

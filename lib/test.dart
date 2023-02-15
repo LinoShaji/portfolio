@@ -2,18 +2,17 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:dashed_line/dashed_line.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/AnimeStack.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class test extends StatefulWidget {
+  const test({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<test> createState() => _HomePageState();
 }
 
-
-class _HomePageState extends State<HomePage> {
+//todo work on some more animations for the animated textkit
+class _HomePageState extends State<test> {
   bool textAppear = false;
 
   @override
@@ -106,35 +105,43 @@ class _HomePageState extends State<HomePage> {
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Row(children: [
-              Column(
-                children: [
-                  Row(
-                    children: [
-
-                      AnimeStack(IntroText: "Android", Desc: "Android Applications"),
-                      AnimeStack(
-                          IntroText: "Web Development",
-                          Desc: "Im doing web development"),
-                    ],
-                  ),
-                  SizedBox(height: 30),
-                  Container(color: Colors.white60,height: 230,width: 500,child: Text("Testing"),)
-                ],
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              MouseRegion(
+                onEnter: (a) {
+                  setState(() {
+                    textAppear= true;
+                  });
+                },
+                onExit: (a) {
+                  setState(() {
+                    textAppear = false;
+                  });
+                },
+                // todo refactor the below code to be reusable
+                child: Stack(children: [AnimatedOpacity(
+                  curve: Curves.easeOut,
+                    opacity: textAppear ? 1 : 0,
+                    duration: Duration(milliseconds: 300),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: AnimatedContainer(curve: Curves.bounceOut,padding: EdgeInsets.symmetric(horizontal: 40.0,
+                        vertical: 60.0,),duration: Duration(milliseconds: 400),
+                      child: DoContainer(doText: "Developer",H1: 220,W1: 250,)),
+                    )),
+                  AnimatedOpacity(
+                      opacity: textAppear ? 0 : 1,
+                      duration: Duration(milliseconds: 300),
+                      child: Align(alignment: Alignment.center,
+                        child: AnimatedContainer(padding: EdgeInsets.symmetric(horizontal: 57.0,vertical: 77.0),duration: Duration(milliseconds: 400),
+                        child: DoContainer(doText: "Developer")),
+                      ))
+                ]),
               ),
-              Column(
-                children: [
-                  AnimeStack(
-                      IntroText: "Web Development",
-                      Desc: "Im doing web development"),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  AnimeStack(
-                      IntroText: "Web Development",
-                      Desc: "Im doing web development")
-                ],
-              )
+              //todo https://levelup.gitconnected.com/how-to-create-a-beautiful-hover-effect-on-a-card-in-flutter-f82a2958e235 study this and implement for the DoContainer
+              const SizedBox(
+                width: 40,
+              ),
+              Container(height: 60, color: Colors.black45)
             ]),
           ),
           const SizedBox(
@@ -143,7 +150,6 @@ class _HomePageState extends State<HomePage> {
           Text(about),
           const SizedBox(
             height: 500,
-            //todo my projects, how to contact me(create a form and pass the values that users enters to me using firebase)
           )
         ]),
       ),
@@ -355,9 +361,9 @@ class HeadingContainer extends StatelessWidget {
 }
 
 class DoContainer extends StatelessWidget {
-  final String doText;
+  final String doText; final double H1;final double W1;
 
-  DoContainer({Key? key, required this.doText}) : super(key: key);
+  DoContainer({Key? key, required this.doText,this.H1 = 180,this.W1 = 200}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -368,11 +374,29 @@ class DoContainer extends StatelessWidget {
         ),
         alignment: Alignment.center,
         padding: EdgeInsets.only(right: 20, left: 20),
-        height: 180,
-        width: 200,
+        height: H1,
+        width: W1,
         child: Text(
           doText,
           style: TextStyle(fontSize: 25),
         ));
   }
 }
+Widget? HoverContainer(double op1,double op0,String intro,String def){Stack(children: [AnimatedOpacity(
+    curve: Curves.easeOut,
+    opacity: op1,// 1:0
+    duration: Duration(milliseconds: 300),
+    child: Align(
+      alignment: Alignment.bottomCenter,
+      child: AnimatedContainer(padding: EdgeInsets.symmetric(horizontal: 40.0,
+        vertical: 60.0,),duration: Duration(milliseconds: 400),
+          child: DoContainer(doText: def,H1: 220,W1: 250,)),
+    )),
+  AnimatedOpacity(
+      opacity: op0,
+      duration: Duration(milliseconds: 300),
+      child: Align(alignment: Alignment.center,
+        child: AnimatedContainer(padding: EdgeInsets.symmetric(horizontal: 57.0,vertical: 77.0),duration: Duration(milliseconds: 400),
+            child: DoContainer(doText: intro)),
+      ))
+]);}
