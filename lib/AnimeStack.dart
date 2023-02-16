@@ -1,7 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/MyCarousel.dart';
 
 class AnimeStack extends StatefulWidget {
   final String IntroText;
@@ -16,24 +18,11 @@ class AnimeStack extends StatefulWidget {
 
 class _AnimeStackState extends State<AnimeStack> {
   bool textAppear = false;
-  bool Windows = true;
 
-  void yesAndroid() {
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      setState(() {
-        Windows = false;
-      });
-    } else if (defaultTargetPlatform == TargetPlatform.windows) {
-      setState(() {
-        Windows = true;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    yesAndroid();
-    //todo switch this anime stack to other container while on android
+    //todo switch this stack to other while on android
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -105,7 +94,7 @@ class _AnimeStackState extends State<AnimeStack> {
           ),
         )
       ],
-    );
+    ); Container();
   }
 }
 

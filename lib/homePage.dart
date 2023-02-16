@@ -3,7 +3,11 @@ import 'package:dashed_line/dashed_line.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/AnimeStack.dart';
+import 'package:portfolio/MyCarousel.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/foundation.dart';
+
+//todo my projects, how to contact me and leave me a message(create a form and pass the values that users enters to me using firebase)
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,12 +18,28 @@ class HomePage extends StatefulWidget {
 
 
 class _HomePageState extends State<HomePage> {
+  bool Windows = true;
+
+  void yesAndroid() {
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      setState(() {
+        Windows = false;
+      });
+    } else if (defaultTargetPlatform == TargetPlatform.windows) {
+      setState(() {
+        Windows = true;
+      });
+    }
+  }
   bool textAppear = false;
 
   @override
   Widget build(BuildContext context) {
+    yesAndroid();
     final AboutKey = GlobalKey();
     final HomeKey = GlobalKey();
+    final WorkKey = GlobalKey();
+    final AnimeStackKey = GlobalKey();
     String about =
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised";
     return Scaffold(
@@ -36,7 +56,13 @@ class _HomePageState extends State<HomePage> {
               ScrollButton(
                   "About",
                   () => Scrollable.ensureVisible(AboutKey.currentContext!,
+                      duration: const Duration(milliseconds: 600))),
+              const SizedBox(width: 45),
+              ScrollButton(
+                  "My Works",
+                      () => Scrollable.ensureVisible(WorkKey.currentContext!,
                       duration: const Duration(milliseconds: 600)))
+
             ],
           )),
       backgroundColor: const Color(0xffe9e6e6),
@@ -98,14 +124,18 @@ class _HomePageState extends State<HomePage> {
             height: 30,
           ),
           HeadingContainer(
+            key: WorkKey,
               heading: "WHAT I DO",
               Size: MediaQuery.of(context).size.width < 800 ? 40 : 50),
           const DottedLine(lineLength: 400, dashColor: Colors.black45),
           SizedBox(
             height: 30,
           ),
-          SingleChildScrollView(
+          //todo detect if android or windows and then change the below widgets
+
+          Windows? SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            //todo implement another facility while the screen size reudces
             child: Row(children: [
               Column(
                 children: [
@@ -136,14 +166,14 @@ class _HomePageState extends State<HomePage> {
                 ],
               )
             ]),
-          ),
+          ) :  MyCarousel(),
           const SizedBox(
             height: 50,
           ),
           Text(about),
           const SizedBox(
             height: 500,
-            //todo my projects, how to contact me(create a form and pass the values that users enters to me using firebase)
+
           )
         ]),
       ),
