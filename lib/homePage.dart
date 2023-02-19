@@ -2,8 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:dashed_line/dashed_line.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/AnimeStack.dart';
-import 'package:portfolio/MyCarousel.dart';
+import 'package:portfolio/Mywidgets/MyCarousel.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart';
 
@@ -39,7 +38,6 @@ class _HomePageState extends State<HomePage> {
     final AboutKey = GlobalKey();
     final HomeKey = GlobalKey();
     final WorkKey = GlobalKey();
-    final AnimeStackKey = GlobalKey();
     String about =
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised";
     return Scaffold(
@@ -131,42 +129,8 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 30,
           ),
-          //todo detect if android or windows and then change the below widgets
 
-          Windows? SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            //todo implement another facility while the screen size reudces
-            child: Row(children: [
-              Column(
-                children: [
-                  Row(
-                    children: [
-
-                      AnimeStack(IntroText: "Android", Desc: "Android Applications"),
-                      AnimeStack(
-                          IntroText: "Web Development",
-                          Desc: "Im doing web development"),
-                    ],
-                  ),
-                  SizedBox(height: 30),
-                  Container(color: Colors.white60,height: 230,width: 500,child: Text("Testing"),)
-                ],
-              ),
-              Column(
-                children: [
-                  AnimeStack(
-                      IntroText: "Web Development",
-                      Desc: "Im doing web development"),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  AnimeStack(
-                      IntroText: "Web Development",
-                      Desc: "Im doing web development")
-                ],
-              )
-            ]),
-          ) :  MyCarousel(),
+          MyCarousel() ,
           const SizedBox(
             height: 50,
           ),
