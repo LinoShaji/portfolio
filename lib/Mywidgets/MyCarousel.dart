@@ -211,7 +211,7 @@ class _MyCarouselState extends State<MyCarousel> {
                 : Axis.horizontal,
             pageSnapping: true,
             viewportFraction:
-                MediaQuery.of(context).size.width < 800 ? 0.8 : 0.25,
+                MediaQuery.of(context).size.width < 800 ? 0.9 : 0.25,
             aspectRatio: 18 / 9,
             disableCenter: true,
             height: MediaQuery.of(context).size.width < 800

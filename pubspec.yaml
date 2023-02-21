@@ -44,6 +44,7 @@ dependencies:
   carousel_slider: ^4.2.1
   flutter_bootstrap: ^2.0.0
   flutter_displaymode: ^0.5.0
+  flutter_animate: ^4.1.0
 
 dev_dependencies:
   flutter_test:

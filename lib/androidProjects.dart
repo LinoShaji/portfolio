@@ -80,25 +80,30 @@ class _AndroidProjectsState extends State<AndroidProjects> {
                             _lauchUrlLtaxi();
                           },
                           child: Stack(
-                            children: [CarouselSlider(
-                                items: [
-                                  Container(
-                                      decoration: const BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  "lib/asset/images/Ltaxi.jpg")))),
-                                  Container(
-                                      decoration: const BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  "lib/asset/images/Ltaxi2.jpg")))),
-                                ],
-                                options: CarouselOptions(
-                                  height: MediaQuery.of(context).size.height,
-                                    autoPlay: true,
-                                    scrollDirection: MediaQuery.of(context).size.width<800?Axis.vertical:Axis.horizontal,
-                                    autoPlayAnimationDuration:
-                                        Duration(milliseconds: 230))),
+                            children: [Container(alignment: Alignment.center,
+                              child: CarouselSlider(
+                                  items: [
+                                    Container(
+                                        decoration: const BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    "lib/asset/images/Ltaxi.jpg")))),
+                                    Container(
+                                        decoration: const BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    "lib/asset/images/Ltaxi2.jpg")))),
+                                  ],
+                                  options: CarouselOptions(
+                                    aspectRatio: MediaQuery.of(context).size.width<800?13/9:16/9,
+                                    viewportFraction: MediaQuery.of(context).size.width<800?0.5:0.8,
+                                    disableCenter: true,
+                                      height: MediaQuery.of(context).size.width<800?MediaQuery.of(context).size.height/1.8:MediaQuery.of(context).size.height,
+                                      autoPlay: true,
+                                      scrollDirection: MediaQuery.of(context).size.width<800?Axis.vertical:Axis.horizontal,
+                                      autoPlayAnimationDuration:
+                                          Duration(milliseconds: 230))),
+                            ),
                               AnimatedOpacity(opacity: Ltaxiop,
                                   duration: Duration(milliseconds: 500),
                                   child: Container(alignment: Alignment.center,child: Text("L-TAXI",style: TextStyle(fontSize: 50)),))
@@ -129,10 +134,10 @@ class _AndroidProjectsState extends State<AndroidProjects> {
             ],
             options: CarouselOptions(
               reverse: true,
-                viewportFraction: 0.9,
+                viewportFraction: 0.7,
                 height: MediaQuery.of(context).size.height,
                 scrollDirection: Axis.vertical,
-                autoPlay: false,
+                autoPlay: true,
                 enlargeCenterPage: false)),
       ),
     );

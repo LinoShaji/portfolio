@@ -103,6 +103,5 @@ class _AnimeStackState extends State<AnimeStack> {
         )
       ],
     );
-    Container();
   }
 }

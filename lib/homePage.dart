@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:dashed_line/dashed_line.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:portfolio/Mywidgets/MyCarousel.dart';
+import 'package:portfolio/Mywidgets/NeumorphicContainer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart';
 
@@ -15,8 +18,10 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-
 class _HomePageState extends State<HomePage> {
+  Color emailcolor = Colors.blueGrey;
+  Color locationcolor = Colors.blueGrey;
+  Color WhatsappColor = Colors.black;
   bool Windows = true;
 
   void yesAndroid() {
@@ -30,38 +35,75 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
+
   bool textAppear = false;
 
   @override
   Widget build(BuildContext context) {
     yesAndroid();
+    String email = Uri.encodeComponent("linoshaji23@gmail.com");
+    Uri mail = Uri.parse("mailto:$email");
+    Uri whatsapp = Uri.parse("https://wa.me/+918593871625");
+    Future<void> _launchWhatsapp() async {
+      if (!await launchUrl(whatsapp)) {
+        throw Exception("Could not launch");
+      }
+    }
+
+    Future<void> _launchemail() async {
+      if (!await launchUrl(mail)) {
+        throw Exception('Could not launch');
+      }
+    }
+
+    Uri location = Uri.parse(
+        "https://www.google.co.in/maps/place/Ameen+Hostel/@9.5451859,76.8147328,17z/data=!3m1!4b1!4m5!3m4!1s0x3b0637dc24488533:0x2554ebc013ffaaa5!8m2!3d9.5451855!4d76.8169148");
+    Future<void> _launchlocation() async {
+      if (!await launchUrl(location)) {
+        throw Exception('coukd not launch');
+      }
+    }
+
     final AboutKey = GlobalKey();
     final HomeKey = GlobalKey();
     final WorkKey = GlobalKey();
+    final Contact = GlobalKey();
     String about =
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised";
+        "A computer science engineering student passionate about tech world. I found my interest sitting infront of my laptop develop, deploy responsive and intuitive user interfaces. Always passionate about building innovative and engaging programming applications that make a positive impact on people's lives and am excited to bring my skills and experience to new projects and teams. Currently working with python projects and trying the new field of network security and intelligence.";
+    ScrollController controller = ScrollController();
     return Scaffold(
       appBar: AppBar(
           backgroundColor: const Color(0xff36576C),
-          flexibleSpace: Row(
-            children: [
-              const SizedBox(width: 20),
-              ScrollButton(
-                  "Home",
-                  () => Scrollable.ensureVisible(HomeKey.currentContext!,
-                      duration: const Duration(milliseconds: 600))),
-              const SizedBox(width: 45),
-              ScrollButton(
-                  "About",
-                  () => Scrollable.ensureVisible(AboutKey.currentContext!,
-                      duration: const Duration(milliseconds: 600))),
-              const SizedBox(width: 45),
-              ScrollButton(
-                  "My Works",
-                      () => Scrollable.ensureVisible(WorkKey.currentContext!,
-                      duration: const Duration(milliseconds: 600)))
-
-            ],
+          flexibleSpace: Container(
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(width: 20),
+                ScrollButton(
+                    "Home",
+                    () => Scrollable.ensureVisible(HomeKey.currentContext!,
+                        duration: const Duration(milliseconds: 600)),MediaQuery.of(context).size.width < 800?17:20),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width < 600 ? 17 : 45),
+                ScrollButton(
+                    "About",
+                    () => Scrollable.ensureVisible(AboutKey.currentContext!,
+                        duration: const Duration(milliseconds: 600)),MediaQuery.of(context).size.width < 800?17:20),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width < 600 ? 17 : 45),
+                ScrollButton(
+                    "My Works",
+                    () => Scrollable.ensureVisible(WorkKey.currentContext!,
+                        duration: const Duration(milliseconds: 600)),MediaQuery.of(context).size.width < 800?17:20),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width < 600 ? 17 : 45),
+                ScrollButton(
+                    "Contact me",
+                    () => Scrollable.ensureVisible(Contact.currentContext!,
+                        duration: const Duration(milliseconds: 600)),MediaQuery.of(context).size.width < 800?17:20)
+              ],
+            ),
           )),
       backgroundColor: const Color(0xffe9e6e6),
       body: SingleChildScrollView(
@@ -106,10 +148,13 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 40),
           Container(
               padding: const EdgeInsets.only(left: 90, right: 90),
-              child: Text(
-                about,
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width < 800 ? 20 : 35,
+              child: Animate(
+                effects: [FadeEffect(duration: Duration(seconds: 1))],
+                child: Text(
+                  about,
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width < 800 ? 20 : 30,
+                  ),
                 ),
               )),
           const SizedBox(height: 20),
@@ -122,89 +167,215 @@ class _HomePageState extends State<HomePage> {
             height: 30,
           ),
           HeadingContainer(
-            key: WorkKey,
+              key: WorkKey,
               heading: "WHAT I DO",
               Size: MediaQuery.of(context).size.width < 800 ? 40 : 50),
           const DottedLine(lineLength: 400, dashColor: Colors.black45),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
-
-          MyCarousel() ,
+          const MyCarousel(),
           const SizedBox(
             height: 50,
           ),
-          Text(about),
-          const SizedBox(
-            height: 500,
-
+          Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              color: Color(0xff36576C),
+            ),
+            child: Column(children: [
+              SizedBox(height: 20),
+              Align(
+                alignment: Alignment.center,
+                child: HeadingContainer(
+                  colour: Colors.black54,
+                  key: Contact,
+                  heading: "Get in touch with me",
+                  Size: MediaQuery.of(context).size.width < 800 ? 20 : 30,
+                ),
+              ),
+              //NeumorphicContainer(),
+              const SizedBox(
+                height: 15,
+              ),
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Where to find me :",
+                        style: TextStyle(
+                            color: Colors.white60,
+                            fontSize: MediaQuery.of(context).size.width < 800
+                                ? 18
+                                : 25,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      //
+                      MouseRegion(
+                        onEnter: (a) {
+                          setState(() {
+                            locationcolor = Colors.white;
+                          });
+                        },
+                        onExit: (a) {
+                          setState(() {
+                            locationcolor = Colors.blueGrey;
+                          });
+                        },
+                        child: InkWell(
+                          onTap: () {
+                            _launchlocation();
+                          },
+                          child: Text(
+                            " Pattimattom p.o\n Kottayam district\n Kanjirappally ",
+                            style: TextStyle(
+                              color: locationcolor,
+                              fontSize: MediaQuery.of(context).size.width < 800
+                                  ? 18
+                                  : 25,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      Text(
+                        "Email me at :",
+                        style: TextStyle(
+                            color: Colors.white60,
+                            fontSize: MediaQuery.of(context).size.width < 800
+                                ? 18
+                                : 25,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      MouseRegion(
+                        onEnter: (a) {
+                          setState(() {
+                            emailcolor = Colors.white;
+                          });
+                        },
+                        onExit: (a) {
+                          setState(() {
+                            emailcolor = Colors.blueGrey;
+                          });
+                        },
+                        child: InkWell(
+                          onTap: () {
+                            _launchemail();
+                          },
+                          child: Text(
+                            "\t\t\tlinoshaji23@gmail.com",
+                            style: TextStyle(
+                              color: emailcolor,
+                              fontSize: MediaQuery.of(context).size.width < 800
+                                  ? 18
+                                  : 25,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      Text(
+                        "Call / Whatsapp me at:",
+                        style: TextStyle(
+                            color: Colors.white60,
+                            fontSize: MediaQuery.of(context).size.width < 800
+                                ? 18
+                                : 25,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      Text(
+                        "(+91) 8593871625",
+                        style: TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize:
+                              MediaQuery.of(context).size.width < 800 ? 18 : 25,
+                        ),
+                      ),
+                      MouseRegion(
+                          onHover: (a) {
+                            setState(() {
+                              WhatsappColor = Colors.white;
+                            });
+                          },
+                          child: IconButton(
+                              color: WhatsappColor,
+                              onPressed: () {
+                                _launchWhatsapp();
+                              },
+                              icon: Image(
+                                  image: AssetImage(
+                                      'lib/asset/images/whatsapp.png')))),
+                    ],
+                  ),
+                ),
+              )
+            ]),
           )
         ]),
       ),
     );
   }
+}
 
-  Container nameContainer(BuildContext context) {
-    final Uri _insta = Uri.parse('https://www.instagram.com/lino_shaji/');
-    final Uri _git = Uri.parse('https://github.com/LinoShaji');
-    final Uri _linkedin =
-        Uri.parse('https://www.linkedin.com/in/lino-shaji-66232618b/');
+Container nameContainer(BuildContext context) {
+  final Uri _insta = Uri.parse('https://www.instagram.com/lino_shaji/');
+  final Uri _git = Uri.parse('https://github.com/LinoShaji');
+  final Uri _linkedin =
+      Uri.parse('https://www.linkedin.com/in/lino-shaji-66232618b/');
 
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width / 2,
-      decoration: const BoxDecoration(color: Color(0xff36576C)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(left: 20),
-            alignment: Alignment.center,
-            child: Text("I   am",
-                style: TextStyle(
-                    fontFamily: 'poppins',
-                    fontWeight: FontWeight.w600,
-                    fontSize: MediaQuery.of(context).size.width < 800 ? 30 : 40,
-                    letterSpacing: 0,
-                    color: Colors.white)),
+  return Container(
+    height: MediaQuery.of(context).size.height,
+    width: MediaQuery.of(context).size.width / 2,
+    decoration: const BoxDecoration(color: Color(0xff36576C)),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(left: 20),
+          alignment: Alignment.center,
+          child: Text("I   am",
+              style: TextStyle(
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w600,
+                  fontSize: MediaQuery.of(context).size.width < 800 ? 30 : 40,
+                  letterSpacing: 0,
+                  color: Colors.white)),
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: Text("LINO SHAJI",
+              style: TextStyle(
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w600,
+                  fontSize: MediaQuery.of(context).size.width < 800 ? 35 : 65,
+                  letterSpacing: 0,
+                  color: Colors.white)),
+        ),
+        Container(alignment: Alignment.center, child: AnimatedPositions()),
+        SizedBox(height: 60),
+        // contact buttons
+        Align(
+          alignment: Alignment.center,
+          child: Container(
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ContactButton('lib/asset/images/whiteInstagram.png', 30, _insta),
+              const SizedBox(
+                width: 20,
+              ),
+              ContactButton('lib/asset/images/whitegithub.png', 30, _git),
+              const SizedBox(
+                width: 20,
+              ),
+              ContactButton('lib/asset/images/whitelinkedin.png', 30, _linkedin)
+              //TODO add whatsapp redirection
+            ]),
           ),
-          Container(
-            alignment: Alignment.center,
-            child: Text("LINO SHAJI",
-                style: TextStyle(
-                    fontFamily: 'poppins',
-                    fontWeight: FontWeight.w600,
-                    fontSize: MediaQuery.of(context).size.width < 800 ? 35 : 65,
-                    letterSpacing: 0,
-                    color: Colors.white)),
-          ),
-          Container(alignment: Alignment.center, child: AnimatedPositions()),
-          SizedBox(height: 60),
-          // contact buttons
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                ContactButton(
-                    'lib/asset/images/whiteInstagram.png', 30, _insta),
-                const SizedBox(
-                  width: 20,
-                ),
-                ContactButton('lib/asset/images/whitegithub.png', 30, _git),
-                const SizedBox(
-                  width: 20,
-                ),
-                ContactButton(
-                    'lib/asset/images/whitelinkedin.png', 30, _linkedin)
-                //TODO add whatsapp redirection
-              ]),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+        )
+      ],
+    ),
+  );
 }
 
 class AnimatedPositions extends StatelessWidget {
@@ -240,6 +411,8 @@ class animatedTextPositions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedTextKit(
+        isRepeatingAnimation: true,
+        repeatForever: true,
         key: Key('${MediaQuery.of(context).size.width < 800 ? 30 : 40}'),
         animatedTexts: [
           TyperAnimatedText("DEVELOPER",
@@ -296,13 +469,6 @@ class meImageContainer extends StatelessWidget {
   }
 }
 
-const h1 = TextStyle(
-    fontFamily: 'poppins',
-    fontWeight: FontWeight.w600,
-    fontSize: 65,
-    letterSpacing: 0,
-    color: Colors.white);
-
 Widget ContactButton(String logo, double h, Uri link) {
   Future<void> _launchUrl() async {
     if (!await launchUrl(link)) {
@@ -319,20 +485,25 @@ Widget ContactButton(String logo, double h, Uri link) {
 Duration Speed = Duration();
 final s1 = Speed = Duration(milliseconds: 100);
 
-Widget ScrollButton(String caption, void OnPressed()) {
+Widget ScrollButton(String caption, void OnPressed(), double size) {
   return TextButton(
       onPressed: OnPressed,
       child: Text(
         caption,
-        style: TextStyle(color: Colors.white, fontSize: 15),
+        style: TextStyle(color: Colors.white, fontSize: size),
       ));
 }
 
 class HeadingContainer extends StatelessWidget {
   final String heading;
   final double Size;
+  Color colour;
 
-  HeadingContainer({Key? key, required this.heading, required this.Size})
+  HeadingContainer(
+      {Key? key,
+      required this.heading,
+      required this.Size,
+      this.colour = const Color(0xff567189)})
       : super(key: key);
 
   @override
@@ -343,7 +514,7 @@ class HeadingContainer extends StatelessWidget {
               fontWeight: FontWeight.w600,
               fontSize: Size,
               letterSpacing: 1,
-              color: Color(0xff567189))),
+              color: colour)),
     );
   }
 }
