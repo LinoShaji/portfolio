@@ -49,10 +49,7 @@ class _AndroidProjectsState extends State<AndroidProjects> {
                   hoverColor: Colors.black45.withOpacity(0.1),
                   onTap: (){_launchUrlAdhkar();},
                   child: Stack(
-                    children: [Container(
-                        decoration: const BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage("lib/asset/images/ADKARNEW.png")))),
+                    children: [Container(child: Image(image: AssetImage("lib/asset/images/ADKARNEW.png")),),
                       AnimatedOpacity(opacity: adhkarop,
                       duration: Duration(milliseconds: 500),
                       child: Container(alignment: Alignment.center,child: Text("ADKAR",style: TextStyle(fontSize: 50)),))
@@ -83,16 +80,8 @@ class _AndroidProjectsState extends State<AndroidProjects> {
                             children: [Container(alignment: Alignment.center,
                               child: CarouselSlider(
                                   items: [
-                                    Container(
-                                        decoration: const BoxDecoration(
-                                            image: DecorationImage(
-                                                image: AssetImage(
-                                                    "lib/asset/images/Ltaxi.jpg")))),
-                                    Container(
-                                        decoration: const BoxDecoration(
-                                            image: DecorationImage(
-                                                image: AssetImage(
-                                                    "lib/asset/images/Ltaxi2.jpg")))),
+                                    Container(child: Image(image: AssetImage("lib/asset/images/Ltaxi.jpg")),),
+                                    Container(child: Image(image: AssetImage("lib/asset/images/Ltaxi2.jpg")),),
                                   ],
                                   options: CarouselOptions(
                                     aspectRatio: MediaQuery.of(context).size.width<800?13/9:16/9,
@@ -147,25 +136,13 @@ class _AndroidProjectsState extends State<AndroidProjects> {
     return Stack(
                         children: [CarouselSlider(
                             items: [
-                              Container(
+                              Container(child: Image(image: AssetImage(firstImage)),
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.height,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        firstImage),
-                                  ),
-                                ),
                               ),
-                              Container(
+                              Container(child: Image(image: AssetImage(SecondImage)),
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.height,
-                                decoration:  BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        SecondImage),
-                                  ),
-                                ),
                               )
                             ],
                             options: CarouselOptions(

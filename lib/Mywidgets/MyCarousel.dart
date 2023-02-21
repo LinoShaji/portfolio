@@ -57,20 +57,19 @@ class _MyCarouselState extends State<MyCarousel> {
                 const CarouselContainer(
                     flex: 2,
                     text: "ANDROID",
-                    images: 'lib/asset/images/androidBackground.png',
-                    Colour: Colors.black),
+                    Colour: Colors.white,),
                 Container(
                     margin: const EdgeInsets.all(15),
                     child: const Text(
                       "Android app development using Flutter",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     )),
                 Expanded(
                   flex: 1,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: const Color(0xffF5EDCE),
+                        color: Color(0xff393053),
                         borderRadius: BorderRadius.circular(15)),
                     margin: const EdgeInsets.all(10),
                     child: TextButton(
@@ -103,9 +102,9 @@ class _MyCarouselState extends State<MyCarousel> {
                         child: const Text(
                           "VIEW PROJECT",
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
                         )),
                   ),
                 )
@@ -127,20 +126,19 @@ class _MyCarouselState extends State<MyCarousel> {
                 const CarouselContainer(
                     flex: 2,
                     text: "WEB",
-                    images: 'lib/asset/images/androidBackground.png',
                     Colour: Colors.black),
                 Container(
                     margin: const EdgeInsets.all(15),
                     child: const Text(
                       "Web app development designing and development",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     )),
                 Expanded(
                   flex: 1,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: const Color(0xffF5EDCE),
+                        color: Color(0xff393053),
                         borderRadius: BorderRadius.circular(15)),
                     margin: EdgeInsets.all(10),
                     child: TextButton(
@@ -150,9 +148,9 @@ class _MyCarouselState extends State<MyCarousel> {
                         child: const Text(
                           "VIEW PROJECT",
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
                         )),
                   ),
                 )
@@ -174,21 +172,20 @@ class _MyCarouselState extends State<MyCarousel> {
                 const CarouselContainer(
                     flex: 2,
                     text: "BRAND IDENTITY",
-                    images: 'lib/asset/images/androidBackground.png',
                     Colour: Colors.black,
                     textsize: 25),
                 Container(
                     margin: EdgeInsets.all(15),
                     child: Text(
                       "Design custom logo's, posters, product covers and all related stuffs",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     )),
                 Expanded(
                   flex: 1,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                        color: const Color(0xffF5EDCE),
+                        color: Color(0xff393053),
                         borderRadius: BorderRadius.circular(15)),
                     margin: EdgeInsets.all(10),
                     child: TextButton(
@@ -196,9 +193,9 @@ class _MyCarouselState extends State<MyCarousel> {
                         child: const Text(
                           "VIEW DESIGNS",
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
                         )),
                   ),
                 )
@@ -232,7 +229,6 @@ class _MyCarouselState extends State<MyCarousel> {
 class CarouselContainer extends StatelessWidget {
   final int flex;
   final String text;
-  final String images;
   final Color Colour;
   final double textsize;
 
@@ -240,7 +236,6 @@ class CarouselContainer extends StatelessWidget {
       {super.key,
       required this.flex,
       required this.text,
-      required this.images,
       required this.Colour,
       this.textsize = 30});
 
@@ -253,14 +248,13 @@ class CarouselContainer extends StatelessWidget {
         margin: EdgeInsets.all(13),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            image:
-                DecorationImage(image: AssetImage(images), fit: BoxFit.cover),
+            color: Color(0xff4D455D),
             borderRadius: BorderRadius.circular(20)),
-        child: Text(text,
+        child: Text(text,textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: textsize,
-                fontWeight: FontWeight.w500,
-                color: Colour)),
+                fontWeight: FontWeight.bold,
+                color: Colors.white)),
         //
       ),
     );

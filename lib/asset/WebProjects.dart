@@ -69,7 +69,7 @@ class ImageContainer extends StatelessWidget {
       width: MediaQuery.of(context).size.width < 800
           ? MediaQuery.of(context).size.width
           : MediaQuery.of(context).size.width / 2,
-       child: Image.network(root)
+       child: Image(image: AssetImage(root))
       // Image.network(root: root),
     );
   }
