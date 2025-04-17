@@ -1,11 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'package:portfolio/androidProjects.dart';
-import 'package:portfolio/asset/WebProjects.dart';
-import 'package:portfolio/homePage.dart';
-import 'package:portfolio/Mywidgets/MyCarousel.dart';
-import 'package:portfolio/Mywidgets/NeumorphicContainer.dart';
-import 'package:portfolio/Mywidgets/AnimeStack.dart';
 
 
 void main() {
@@ -20,31 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    setOptimalDisplayMode();
-    super.initState();
-  }
 
-  Future<void> setOptimalDisplayMode() async {
-    final List<DisplayMode> supported = await FlutterDisplayMode.supported;
-    final DisplayMode active = await FlutterDisplayMode.active;
-
-    final List<DisplayMode> sameResolution = supported.where(
-            (DisplayMode m) => m.width == active.width
-            && m.height == active.height).toList()..sort(
-            (DisplayMode a, DisplayMode b) =>
-            b.refreshRate.compareTo(a.refreshRate));
-
-    final DisplayMode mostOptimalMode = sameResolution.isNotEmpty
-        ? sameResolution.first
-        : active;
-
-    /// This setting is per session.
-    /// Please ensure this was placed with `initState` of your root widget.
-    await FlutterDisplayMode.setPreferredMode(mostOptimalMode);
-  }
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,9 +23,16 @@ class _MyAppState extends State<MyApp> {
         fontFamily: 'poppins',
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: const _HomePage(),
     );
   }
 }
 
+class _HomePage extends StatelessWidget {
+  const _HomePage();
 
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
